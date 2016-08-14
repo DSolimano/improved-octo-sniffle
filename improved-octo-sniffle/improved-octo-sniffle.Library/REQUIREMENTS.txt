@@ -1,0 +1,12 @@
+﻿Functions
+Put
+Put with expiration
+Retrieve
+Delete
+Share a handle
+
+Perf
+
+95% of the time, retrieve is less than 1 ms
+99% of the time, retrieve is less than 5 ms
+10m kvp
