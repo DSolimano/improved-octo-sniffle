@@ -8,6 +8,8 @@ namespace improved_octo_sniffle.Library
 {
     public class SpikeExpiringHashTable<TKey, TValue> : IExpiringHashTable<TKey, TValue>
     {
+        //We make a guess as to the number of reading threads, and pre-initialize the hash table with the 
+        // 10M entries we know are the maximum we have to store.
         private readonly System.Collections.Concurrent.ConcurrentDictionary<TKey, ValueExpiryManager>
             _base = new System.Collections.Concurrent.ConcurrentDictionary<TKey, ValueExpiryManager>(20, 10000000);
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace improved_octo_sniffle.Tests.Timing
 {
     [TestFixture]
-    public class PutLootsOfData
+    public class GetAndPutRandomData
     {
         TimingBuckets tb = new TimingBuckets();
         SpikeExpiringHashTable<string, int> foobar = new SpikeExpiringHashTable<string, int>();
