@@ -28,9 +28,10 @@ namespace improved_octo_sniffle.Library
                 }
                 else
                 {
-                    //we remove it, and let the key not found exception be thrown later;
-                    ValueExpiryManager dummy;
-                    _base.TryRemove(key_, out dummy);
+                    //we do nothing here if the key is expired.  The reason that we don't do a remove is
+                    // another thread may be replacing our value with one that is not expired.  If we remove
+                    // by key, we may accidentally remove the new value in that case.  This way is wasteful of space
+                    // but correct.
 
                 }
             }
@@ -40,14 +41,17 @@ namespace improved_octo_sniffle.Library
 
         public void Put(TKey key_, TValue val_)
         {
-            _base.TryAdd(key_, new ValueExpiryManager(val_, DateTime.MinValue));
+            PutWithExpiration(key_, val_, DateTime.MinValue);
         }
 
         public void PutWithExpiration(TKey key_, TValue val_, DateTime expiration_)
         {
-            _base.TryAdd(key_, new ValueExpiryManager(val_, expiration_));
+            _base[key_] = new ValueExpiryManager(val_, expiration_);
         }
 
+        /// <summary>
+        /// This class exists to wrap the values for our hash table and let us know when, if ever, they are expired.
+        /// </summary>
         private struct ValueExpiryManager
         {
             public TValue Val { get; }

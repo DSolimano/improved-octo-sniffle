@@ -42,6 +42,19 @@ namespace improved_octo_sniffle.Tests.Function
         }
 
         [Test]
+        public void AddAndReplace()
+        {
+            string key = "Kate";
+            int value1 = 29;
+            int value2 = 45;
+
+            _ht.Put(key, value1);
+            _ht.Put(key, value2);
+
+            Assert.AreEqual(value2, _ht.Get(key));
+        }
+
+        [Test]
         public void AddWithExpirationAndGet()
         {
             string key = "Kate";
